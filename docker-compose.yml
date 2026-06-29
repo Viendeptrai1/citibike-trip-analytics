@@ -113,20 +113,38 @@ services:
       - ./:/opt/project
       - ./config/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf:ro
 
-  spark-worker:
+  spark-worker-1:
     build:
       context: .
       dockerfile: docker/spark/Dockerfile
     image: citibike-lakehouse-spark:latest
-    container_name: citibike-spark-worker
+    container_name: citibike-spark-worker-1
     depends_on:
       - spark-master
     environment:
-      SPARK_WORKER_MEMORY: ${SPARK_EXECUTOR_MEMORY:-2g}
-      SPARK_WORKER_CORES: "2"
+      SPARK_WORKER_MEMORY: "2g"
+      SPARK_WORKER_CORES: "1"
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     ports:
       - "${SPARK_WORKER_WEB_PORT:-8081}:8081"
+    volumes:
+      - ./:/opt/project
+      - ./config/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf:ro
+
+  spark-worker-2:
+    build:
+      context: .
+      dockerfile: docker/spark/Dockerfile
+    image: citibike-lakehouse-spark:latest
+    container_name: citibike-spark-worker-2
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_WORKER_MEMORY: "2g"
+      SPARK_WORKER_CORES: "1"
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    ports:
+      - "8082:8081"
     volumes:
       - ./:/opt/project
       - ./config/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf:ro
@@ -139,7 +157,8 @@ services:
     container_name: citibike-spark-driver
     depends_on:
       - spark-master
-      - spark-worker
+      - spark-worker-1
+      - spark-worker-2
       - minio
     env_file:
       - .env

@@ -5,7 +5,7 @@ COMPOSE := docker compose
 
 up:
 	@if [ ! -f .env ]; then cp .env.example .env; fi
-	$(COMPOSE) up -d --build minio spark-master spark-worker jupyter
+	$(COMPOSE) up -d --build minio spark-master spark-worker-1 spark-worker-2 jupyter
 
 up-full:
 	@if [ ! -f .env ]; then cp .env.example .env; fi
