@@ -15,7 +15,7 @@ Chọn các truy vấn SQL tiêu biểu; mã nguồn đầy đủ vẫn được
 
 ## Phụ lục D. Kết quả kiểm thử
 
-Đưa log hoặc bảng kết quả kiểm thử chi tiết, tránh làm gián đoạn Chương 5.
+Đưa log hoặc bảng kết quả kiểm thử chi tiết, tránh làm gián đoạn Chương 4.
 
 ## Phụ lục E. Phân công công việc
 
@@ -26,4 +26,3 @@ Chọn các truy vấn SQL tiêu biểu; mã nguồn đầy đủ vẫn được
 ## Phụ lục F. Liên kết mã nguồn và tài liệu
 
 TODO(review): Bổ sung repository, commit/tag dùng để nộp và ngày truy cập.
-

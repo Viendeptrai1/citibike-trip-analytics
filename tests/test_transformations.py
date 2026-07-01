@@ -49,6 +49,45 @@ def test_transform_to_silver_filters_invalid_rows():
     spark.stop()
 
 
+def test_transform_to_silver_filters_missing_or_invalid_coordinates():
+    spark = SparkSession.builder.master("local[1]").appName("test-silver-coordinates").getOrCreate()
+    rows = [
+        {
+            "ride_id": "valid",
+            "started_at": "2024-01-01 10:00:00",
+            "ended_at": "2024-01-01 10:10:00",
+            "start_lat": "40.0",
+            "start_lng": "-73.0",
+            "end_lat": "40.1",
+            "end_lng": "-73.1",
+        },
+        {
+            "ride_id": "missing-coordinate",
+            "started_at": "2024-01-01 10:00:00",
+            "ended_at": "2024-01-01 10:10:00",
+            "start_lat": None,
+            "start_lng": "-73.0",
+            "end_lat": "40.1",
+            "end_lng": "-73.1",
+        },
+        {
+            "ride_id": "invalid-coordinate",
+            "started_at": "2024-01-01 10:00:00",
+            "ended_at": "2024-01-01 10:10:00",
+            "start_lat": "not-a-number",
+            "start_lng": "-73.0",
+            "end_lat": "40.1",
+            "end_lng": "-73.1",
+        },
+    ]
+
+    silver = transform_to_silver(spark.createDataFrame(rows))
+
+    assert [row["ride_id"] for row in silver.select("ride_id").collect()] == ["valid"]
+    assert silver.select("distance_km").first()[0] is not None
+    spark.stop()
+
+
 def test_transform_to_silver_normalizes_legacy_user_type_values():
     spark = SparkSession.builder.master("local[1]").appName("test-legacy-user-type").getOrCreate()
     rows = [

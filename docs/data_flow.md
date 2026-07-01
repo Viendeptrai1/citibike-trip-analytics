@@ -27,7 +27,9 @@ flowchart TD
 
 ## Step 3: Bronze to Silver
 
-`src/jobs/transform_silver.py` normalizes column names, casts timestamps, removes invalid trips, and creates derived columns:
+`src/jobs/transform_silver.py` normalizes column names, casts timestamps and
+coordinates, removes trips with missing/invalid required coordinates or invalid
+time ranges, and creates derived columns:
 
 - `trip_duration_minutes`
 - `start_date`

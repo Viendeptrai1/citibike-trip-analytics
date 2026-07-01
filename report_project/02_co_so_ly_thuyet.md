@@ -72,9 +72,8 @@ trung bình và lưu lượng theo trạm.
 ## 2.9. Truy vấn phân tích và trực quan hóa dữ liệu
 
 Trình bày vai trò của SQL query engine, BI dashboard và nguyên tắc chọn biểu đồ
-phù hợp. Chi tiết cấu hình Trino và Superset để dành cho Chương 4.
+phù hợp. Chi tiết cấu hình Trino và Superset được trình bày trong Chương 3.
 
 ## 2.10. Tiểu kết chương
 
 Tổng hợp mối liên hệ giữa các lý thuyết và quyết định thiết kế ở Chương 3.
-

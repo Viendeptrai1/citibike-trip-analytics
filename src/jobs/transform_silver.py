@@ -48,14 +48,18 @@ COLUMN_ALIASES = {
     "usertype": "member_casual",
 }
 
-REQUIRED_COLUMNS = [
-    "ride_id",
-    "started_at",
-    "ended_at",
+COORDINATE_COLUMNS = [
     "start_lat",
     "start_lng",
     "end_lat",
     "end_lng",
+]
+
+REQUIRED_COLUMNS = [
+    "ride_id",
+    "started_at",
+    "ended_at",
+    *COORDINATE_COLUMNS,
 ]
 
 
@@ -105,11 +109,16 @@ def transform_to_silver(df: DataFrame) -> DataFrame:
         .otherwise(F.lower(F.col("member_casual"))),
     ).withColumn("rideable_type", F.lower(F.col("rideable_type")))
 
+    coordinates_present = F.lit(True)
+    for coordinate in COORDINATE_COLUMNS:
+        coordinates_present = coordinates_present & F.col(coordinate).isNotNull() & ~F.isnan(F.col(coordinate))
+
     cleaned = typed.filter(
         F.col("ride_id").isNotNull()
         & F.col("started_at").isNotNull()
         & F.col("ended_at").isNotNull()
         & (F.col("ended_at") > F.col("started_at"))
+        & coordinates_present
     )
 
     silver = (

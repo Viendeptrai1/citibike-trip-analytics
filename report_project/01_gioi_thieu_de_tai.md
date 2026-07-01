@@ -85,4 +85,4 @@ lượng dữ liệu, các bảng Gold, truy vấn SQL, dashboard và tài liệ
 
 ## 1.8. Cấu trúc báo cáo
 
-Tóm tắt vai trò của Chương 2 đến Chương 6, mỗi chương từ một đến hai câu.
+Tóm tắt vai trò của Chương 2 đến Chương 5, mỗi chương từ một đến hai câu.

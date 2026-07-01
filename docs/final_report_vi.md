@@ -93,7 +93,8 @@ Silver làm sạch và chuẩn hóa dữ liệu. Các xử lý chính:
 
 - Chuẩn hóa tên cột.
 - Ép kiểu `started_at`, `ended_at` sang timestamp.
-- Loại bỏ dòng thiếu `ride_id`, thiếu thời gian hoặc `ended_at <= started_at`.
+- Loại bỏ dòng thiếu `ride_id`, thiếu thời gian, `ended_at <= started_at`, hoặc
+  thiếu/không chuyển đổi được một trong bốn tọa độ bắt buộc.
 - Tính `trip_duration_minutes`.
 - Tạo `start_date`, `start_hour`, `day_of_week`, `month`, `is_weekend`.
 - Tính `distance_km` bằng công thức Haversine.
